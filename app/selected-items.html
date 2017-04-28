@@ -1,0 +1,7 @@
+<ui-select multiple ng-model="newEvent.selectedItems" theme="bootstrap" close-on-select="true" style="width: 100%;" search-enabled="false">
+           title="Choose values">
+    <ui-select-match placeholder="Select colors...">{{$item}}</ui-select-match>
+    <ui-select-choices repeat="val in ctrl.selectedType.possibleValues | filter:$select.search">
+        {{val}}
+    </ui-select-choices>
+</ui-select>

@@ -1,0 +1,10 @@
+img.avatar {
+    max-height: 35px;
+    display: inline-block;
+}
+
+img.picture {
+    margin: 3px 3px 0 0;
+    max-height: 200px;
+    display: inline-block;
+}

@@ -1,0 +1,23 @@
+<ui-select ng-model="ctrl.type" theme="bootstrap" on-select="onSelect( {type: $select.selected} ); do()" search-enabled="false">
+    <ui-select-match placeholder="Select or search event in the list...">
+        {{$select.selected.type}}
+    </ui-select-match>
+    <ui-select-choices repeat="et in eventTypes | filter: $select.search | filter: {main: true}">
+        <span style="display: block;">
+            <i class="glyphicon glyphicon-{{et.icon}}" style="color: {{et.color}}"></i>
+            {{et.type}}
+        </span>
+        <div ng-show="et.fields">
+            <small>Fields:</small>
+            <span ng-repeat="fld in et.fields">{{fld}} </span>
+        </div>
+        <small ng-show="et.subEventType">Nested event type: {{et.subEventType}}</small>
+        <!--<div ng-bind-html="et.type | highlight: $select.search"></div>-->
+        <!--<small ng-bind-html="et.color | highlight: $select.search"></small>-->
+    </ui-select-choices>
+</ui-select>
+<span class="input-group-btn">
+  <button type="button" ng-click="ctrl.type = undefined" class="btn btn-default">
+    <span class="glyphicon glyphicon-trash"></span>
+  </button>
+</span>

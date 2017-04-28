@@ -1,0 +1,131 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Eventy</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="lib/ng-timeline/angular-timeline.css"/>
+    <link rel="stylesheet" href="lib/ng-timeline/angular-timeline-bootstrap.css"/>
+    <link rel="stylesheet" href="lib/ng-timeline/angular-timeline-animations.css"/>
+    <link rel="stylesheet" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css"/>
+    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.min.css"/>
+    <link rel="stylesheet" href="css/common.css"/>
+</head>
+
+<body ng-app="eventy" ng-controller="EventyCtrl as ctrl">
+
+<style>
+    /*body { background-color: aliceblue; }*/
+    timeline-footer {
+        background-color: aliceblue;
+    }
+</style>
+
+
+<p>
+    <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.activeTab = 1">Select second tab</button>
+    <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.activeTab = 2">Select third tab</button>
+    <button type="button" class="btn btn-default btn-sm" ng-click="log()">LOG</button>
+</p>
+<p>
+    <button type="button" class="btn btn-default btn-sm" ng-click="tabs[1].disabled = ! tabs[1].disabled">Enable /
+        Disable third tab
+    </button>
+</p>
+<hr/>
+
+<uib-tabset active="ctrl.activeTab">
+
+    <!-- Timeline tab -->
+    <uib-tab index="0" heading="Timeline">
+        <div class="container-fluid">
+            <div class="col-md-8">
+                <h1>Our Timeline</h1>
+                <button ng-click="ctrl.activeTab = 1">Add New Event</button>
+                <button ng-click="leftAlign()">Left Side</button>
+                <button ng-click="rightAlign()">Right Side</button>
+                <button ng-click="defaultAlign()">Alternate Sides</button>
+                <br/>
+                <br/>
+                <timeline>
+                    <!-- can also hard-code to side="left" or side="right" -->
+                    <timeline-event ng-repeat="event in events | filter:eventsFilterFn | orderBy:eventsFilter.eventsOrderBy:true" side="{{side}}">
+                        <!-- uses angular-scroll-animate to give it some pop -->
+                        <timeline-badge style="background-color: {{event.color}}" class="{{event.badgeClass}} timeline-hidden" when-visible="animateElementIn" when-not-visible="animateElementOut">
+                            <i class="glyphicon glyphicon-{{event.icon}}"></i>
+                        </timeline-badge>
+                        <timeline-panel class="{{event.badgeClass}} timeline-hidden" when-visible="animateElementIn" when-not-visible="animateElementOut"
+                                ng-style="{'background': eventTypesMap[event.type].background ? 'url(img/event-background/' + eventTypesMap[event.type].background + ')' : 'white', 'background-repeat': 'no-repeat'}">
+                            <event-template type="{{event.type}}"></event-template>
+                        </timeline-panel>
+
+                    </timeline-event>
+
+                </timeline>
+            </div>
+            <div class="col-md-4">
+                <h4>Filters</h4>
+                <h5>event type</h5>
+                <type-select class="input-group" type="eventsFilter.filterType" event-types="eventTypes"></type-select>
+                <h5>user</h5>
+                <user-select class="input-group" user="eventsFilter.user" users="users"></user-select>
+                <button type="button" class="btn btn-default btn-sm"
+                        ng-click="eventsFilter.eventsOrderBy = 'creationDate'">Show New First
+                </button>
+                <button type="button" class="btn btn-default btn-sm"
+                        ng-click="eventsFilter.eventsOrderBy = '-creationDate'">Show Old First
+                </button>
+            </div>
+        </div>
+    </uib-tab>
+
+    <!-- Create -->
+    <uib-tab index="1" heading="Add event">
+        <h1>Create event</h1>
+        <div class="col-sm-6">
+            <h4>Choose type</h4>
+            <type-select class="input-group" type="ctrl.selectedType" on-select="selectTypeToCreate(type)" event-types="eventTypes"></type-select>
+        </div>
+        <event-editor event="newEvent" event-type="ctrl.selectedType" edit-action="createEventServer()"></event-editor>
+    </uib-tab>
+
+    <!-- Modification -->
+    <uib-tab index="2" heading="Modify event">
+        <h1>Modify event</h1>
+        <div class="col-sm-6">
+            <h4>Change type</h4>
+            <type-select class="input-group" type="modifyEventType" on-select="changeEventType(type)" event-types="eventTypes"></type-select>
+        </div>
+        <event-editor event="modifyEvent" event-type="modifyEventType" edit-action="saveModificationsServer()"></event-editor>
+    </uib-tab>
+</uib-tabset>
+
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-scroll-animate/dist/angular-scroll-animate.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/angular-touch/angular-touch.min.js"></script>
+<script src="lib/ng-timeline/angular-timeline.js"></script>
+<script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-ui-select/dist/select.min.js"></script>
+<script src="bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="app/app.js"></script>
+<script src="app/controller.js"></script>
+<script src="app/date-picker.js"></script>
+<script src="app/type-select.js"></script>
+<script src="app/user-select.js"></script>
+<script src="app/ng-thumb.js"></script>
+<script src="app/event-template.js"></script>
+<script src="app/event-editor.js"></script>
+<script src="app/storage.js"></script>
+
+</body>
+</html>

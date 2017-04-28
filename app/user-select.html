@@ -1,0 +1,17 @@
+<ui-select ng-model="ctrl.user" theme="bootstrap" on-select="onSelect( {user: $select.selected.name} )" search-enabled="false">
+    <ui-select-match placeholder="Select or search user in the list...">
+        {{$select.selected.name}}
+    </ui-select-match>
+    <ui-select-choices repeat="u in users | filter: $select.search">
+        <span style="display: block;">
+            <img ng-src="userImage/?user={{u.name}}"
+                style="max-height: 50px; display: inline-block;"/>
+            {{u.name}}
+        </span>
+    </ui-select-choices>
+</ui-select>
+<span class="input-group-btn">
+  <button type="button" ng-click="ctrl.user = undefined" class="btn btn-default">
+    <span class="glyphicon glyphicon-trash"></span>
+  </button>
+</span>

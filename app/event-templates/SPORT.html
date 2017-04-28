@@ -1,0 +1,59 @@
+<timeline-heading>
+    <h4>{{event.headline}}</h4>
+    <p ng-if="event.when">
+        <small class="text-muted"><i class="glyphicon glyphicon-time"></i>{{event.when}}</small>
+    </p>
+</timeline-heading>
+<div ng-if="event.user">
+    <img ng-src="userImage/?user={{event.user}}" class="avatar"/>
+</div>
+<p ng-show="event.date">
+    <small>Date: <b>{{event.date | date}}</b></small>
+</p>
+
+<div style="background: white; padding: 12px;">
+    <div ng-show="event.images">
+        <img ng-repeat="img in event.images" ng-src="image/?imageRelativePath={{img}}" style="width: 100%; display: inline-block;"/>
+    </div>
+    <div ng-show="event.text" style="margin: 10px">
+        <p>{{event.text}}</p>
+    </div>
+    <p ng-show="event.measure">
+        <small>Measure: <b>{{event.measure}}</b></small>
+    </p>
+    <p ng-show="event.severity">
+        <small>Severity:
+            <span uib-rating ng-model="event.severity" max="10" read-only="true"></span></small>
+    </p>
+    <div ng-show="event.selectedItems">
+        <h4>Категории</h4>
+        <p>
+            <span ng-repeat="si in event.selectedItems" class="label label-default">{{si}}</span>
+        </p>
+    </div>
+    <div ng-show="event.events">
+        <h4>Тренировки</h4>
+        <ul style="list-style: none">
+            <li ng-repeat="se in event.events">
+                <div ng-show="se.type == 'SPORT_PUSHUPS'">
+                    <p style="">отжимания: <span style="color: red">{{se.measure}}</span></p>
+                </div>
+                <div ng-show="se.type == 'SPORT_PULLUPS'">
+                    <p style="">подтягивания: <span style="color: red">{{se.measure}}</span></p>
+                </div>
+                <div ng-show="se.type == 'SPORT_RUN'">
+                    <p style="">бег: <span style="color: red">{{se.measure}}</span> км</p>
+                </div>
+                <div ng-show="se.type == 'SPORT_JYM'">
+                    <p>Качалочка</p>
+                    <span ng-show="se.severity" uib-rating ng-model="se.severity" max="10" read-only="true"></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <button class="btn btn-default btn-xs" ng-click="navigateModifyEvent(event)">Modify
+        </button>
+        <button class="btn btn-danger btn-xs" ng-click="deleteEvent(event)">Delete</button>
+    </div>
+</div>

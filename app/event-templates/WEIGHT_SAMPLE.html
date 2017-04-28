@@ -1,0 +1,18 @@
+<timeline-heading>
+    <h4>{{event.headline}}</h4>
+    <p ng-if="event.when">
+        <small class="text-muted"><i class="glyphicon glyphicon-time"></i>{{event.when}}</small>
+    </p>
+</timeline-heading>
+<div ng-if="event.user" style="display: flex">
+    <img ng-src="userImage/?user={{event.user}}" class="avatar"/>
+    <p style="font-size: 12pt; margin: 0 0 0 10px;"><b>{{event.measure}} кг</b></p>
+</div>
+<p ng-show="event.date">
+    <small>Date: <b>{{event.date | date}}</b></small>
+</p>
+<div>
+    <button class="btn btn-default btn-xs" ng-click="navigateModifyEvent(event)">Modify
+    </button>
+    <button class="btn btn-danger btn-xs" ng-click="deleteEvent(event)">Delete</button>
+</div>

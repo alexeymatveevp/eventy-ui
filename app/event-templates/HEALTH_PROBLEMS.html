@@ -1,0 +1,69 @@
+<timeline-heading>
+    <h4>{{event.headline}}</h4>
+    <p ng-if="event.when">
+        <small class="text-muted"><i class="glyphicon glyphicon-time"></i>{{event.when}}</small>
+    </p>
+    <p ng-if="event.titleContentHtml" ng-bind-html="event.titleContentHtml"></p>
+</timeline-heading>
+<div ng-if="event.user">
+    <img ng-src="userImage/?user={{event.user}}" class="avatar"/>
+</div>
+<div ng-show="event.images">
+    <img ng-repeat="img in event.images" ng-src="image/?imageRelativePath={{img}}" class="picture"/>
+</div>
+<p ng-show="event.date">
+    <small>Date: <b>{{event.date | date}}</b></small>
+</p>
+
+<div style="margin: 10px">
+    <p>{{event.text}}</p>
+</div>
+<div ng-show="event.start || event.end">
+    <h3>Период</h3>
+    <p>
+        <span ng-show="event.start">С <b>{{event.start | date}}</b></span>
+        <span ng-show="event.end">по <b>{{event.end | date}}</b></span>
+    </p>
+</div>
+<div ng-show="event.severity">
+    <h3>Насколько сурово</h3>
+    <p>
+        <small>Severity: <span uib-rating ng-model="event.severity" max="10" read-only="true"></span></small>
+    </p>
+</div>
+<div ng-show="event.selectedItems">
+    <h3>Что болит</h3>
+    <p ng-show="event.selectedItems">
+        <span ng-repeat="si in event.selectedItems" class="label label-default" style="margin: 5px">{{si}}</span>
+    </p>
+</div>
+<div ng-show="event.events">
+    <div>
+        <h3>Диета</h3>
+        <ul ng-show="filteredEvents.length != 0" style="list-style: none">
+            <li ng-repeat="se in filteredEvents = (event.events | filter:{type:'HEALTH_PROBLEMS_DIET'})">
+                <p ng-show="se.text">
+                    {{se.text}}
+                </p>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <h3>Прописанный курс лечения</h3>
+        <ul ng-show="filteredEvents.length != 0">
+            <li ng-repeat="se in filteredEvents = (event.events | filter:{type:'HEALTH_PROBLEMS_PILLS'})">
+                <p ng-show="se.text">
+                    {{se.text}}
+                </p>
+                <p ng-show="se.measure || se.measure == 0">
+                    принятое кол-во: {{se.measure}}
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div>
+    <button class="btn btn-default btn-xs" ng-click="navigateModifyEvent(event)">Modify
+    </button>
+    <button class="btn btn-danger btn-xs" ng-click="deleteEvent(event)">Delete</button>
+</div>
