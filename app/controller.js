@@ -11,6 +11,7 @@ var EventyCtrl = function($rootScope, $http, $document, $timeout, $scope, $q, Fi
 
     ctrl.activeTab = 0;
     $scope.events = [];
+    $scope.futureEvents = [];
     $scope.eventTypes = Storage.eventTypes;
     $scope.eventTypesMap = Storage.eventTypesMap;
     $scope.newEvent = {};
@@ -41,8 +42,18 @@ var EventyCtrl = function($rootScope, $http, $document, $timeout, $scope, $q, Fi
                     e.when = moment(e.creationDate).fromNow();
                     $scope.events.push(e)
                 });
-
-            })
+            });
+            $http.get('event-future').then(function(res) {
+                var events = res.data;
+                events.forEach(function(e) {
+                    $scope.createDateObjects(e);
+                    var type = Storage.eventTypesMap[e.type];
+                    e.color = type.color;
+                    e.icon = type.icon;
+                    e.when = moment(e.creationDate).fromNow();
+                    $scope.futureEvents.push(e)
+                });
+            });
         });
 
     };
@@ -222,6 +233,7 @@ var EventyCtrl = function($rootScope, $http, $document, $timeout, $scope, $q, Fi
         $el.removeClass('bounce-in');
     };
 
+    $scope.side = 'left';
     $scope.leftAlign = function() {
         $scope.side = 'left';
     };

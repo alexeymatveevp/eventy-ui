@@ -1,17 +1,10 @@
-<timeline-heading>
-    <h4>{{event.headline}}</h4>
-    <p ng-if="event.when">
-        <small class="text-muted"><i class="glyphicon glyphicon-time"></i>{{event.when}}</small>
-    </p>
+<timeline-heading style="display: block; background: #112b46; padding: 5px;">
+    <img ng-if="event.user" ng-src="userImage/?user={{event.user}}" class="avatar"/>
+    <small ng-if="event.date" style="color: white"><b>{{event.date | date}}</b></small>
 </timeline-heading>
-<div ng-if="event.user">
-    <img ng-src="userImage/?user={{event.user}}" class="avatar"/>
-</div>
-<p ng-show="event.date">
-    <small>Date: <b>{{event.date | date}}</b></small>
-</p>
 
-<div style="background: white; padding: 12px;">
+
+<div style="background: white; padding: 5px;">
     <div ng-show="event.images">
         <img ng-repeat="img in event.images" ng-src="image/?imageRelativePath={{img}}" style="width: 100%; display: inline-block;"/>
     </div>
@@ -32,7 +25,6 @@
         </p>
     </div>
     <div ng-show="event.events">
-        <h4>Тренировки</h4>
         <ul style="list-style: none">
             <li ng-repeat="se in event.events">
                 <div ng-show="se.type == 'SPORT_PUSHUPS'">
@@ -45,8 +37,7 @@
                     <p style="">бег: <span style="color: red">{{se.measure}}</span> км</p>
                 </div>
                 <div ng-show="se.type == 'SPORT_JYM'">
-                    <p>Качалочка</p>
-                    <span ng-show="se.severity" uib-rating ng-model="se.severity" max="10" read-only="true"></span>
+                    <p>Качалочка<span ng-show="se.severity" uib-rating ng-model="se.severity" max="10" read-only="true"></span></p>
                 </div>
             </li>
         </ul>

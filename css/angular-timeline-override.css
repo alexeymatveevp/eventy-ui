@@ -1,0 +1,23 @@
+timeline {
+    width: 50%;
+    display: inline-block;
+}
+
+.timeline:before {
+    left: 100%;
+}
+
+timeline-badge {
+    left: 100%;
+}
+
+timeline-panel {
+    max-width: calc(100% - 45px);
+    width: initial;
+    float: right;
+    margin-right: 50px;
+}
+
+timeline-footer {
+    background-color: aliceblue;
+}
