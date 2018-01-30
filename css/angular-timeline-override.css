@@ -1,3 +1,12 @@
+div.logo {
+    width: 100%;
+    background-color: #93d7ff;
+    padding: 20px;
+    font-size: 16pt;
+    font-family: cursive;
+    color: white;
+}
+
 timeline {
     width: 50%;
     display: inline-block;
@@ -20,4 +29,23 @@ timeline-panel {
 
 timeline-footer {
     background-color: aliceblue;
+}
+
+@media screen and (max-width: 480px) {
+    timeline {
+        width: initial;
+    }
+    timeline > ul.timeline:before {
+        background-color: white;
+    }
+    timeline-panel {
+        max-width: initial;
+        width: 90%;
+        margin-right: 0px;
+    }
+    timeline-badge {
+        left: -8%;
+        float: none;
+        margin-left: 0;
+    }
 }
