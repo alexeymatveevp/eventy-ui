@@ -26,8 +26,8 @@ var EventyCtrl = function($rootScope, $http, $document, $timeout, $scope, $q, Fi
     }];
 
     $scope.eventsFilter = {
-        filterType: undefined,
-        eventsOrderBy: 'creationDate' // new first
+        filterType: undefined
+        // eventsOrderBy: 'creationDate' // new first
     };
 
     $scope.listEvents = function() {
@@ -87,6 +87,11 @@ var EventyCtrl = function($rootScope, $http, $document, $timeout, $scope, $q, Fi
 
     /** Create section */
     $scope.createEventServer = function() {
+        $scope.newEvent.creationDate = new Date().toISOString();
+        // if no date - add as creation date
+        if (!$scope.newEvent.date) {
+            $scope.newEvent.date = $scope.newEvent.creationDate
+        }
         $scope.newEvent.when = 'now';
         $http({
             url: 'event',
@@ -96,7 +101,6 @@ var EventyCtrl = function($rootScope, $http, $document, $timeout, $scope, $q, Fi
                 return data;
             }]
         }).then(function(res) {
-            $scope.newEvent.creationDate = new Date().toISOString();
             $scope.newEvent.id = res.data;
             $scope.events.push($scope.newEvent);
             // cleanup

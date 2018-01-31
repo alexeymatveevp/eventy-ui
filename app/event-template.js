@@ -11,7 +11,6 @@ app.directive('eventTemplate', function($http) {
         //
         // }
         link: function postLink(scope) {
-            console.log(scope.event.type);
             $http.get('app/event-templates/' + scope.event.type + '.html').then(function() {
                 scope.template = 'app/event-templates/' + scope.event.type + '.html';
             }, function() {
