@@ -6,7 +6,7 @@
 
 <div style="background: white; padding: 5px;">
     <div ng-show="event.images">
-        <img ng-repeat="img in event.images" ng-src="image/?imageRelativePath={{img}}" style="width: 100%; display: inline-block;"/>
+        <img ng-repeat="img in event.images" img-fix-orientation="image/?imageRelativePath={{img}}" ng-src="image/?imageRelativePath={{img}}" style="width: 100%; display: inline-block;"/>
     </div>
     <div ng-show="event.text" style="margin: 10px">
         <p>{{event.text}}</p>

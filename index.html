@@ -32,6 +32,8 @@
     eventy
 </div>
 
+{{ $root.asdf | json }}
+
 <uib-tabset active="ctrl.activeTab">
 
     <!-- Timeline tab -->
@@ -121,47 +123,49 @@
 <script src="bower_components/moment/min/moment.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/chart.js/dist/Chart.bundle.min.js"></script>
+<script src="bower_components/exif-js/exif.js"></script>
+<script src="bower_components/angular-fix-image-orientation/angular-fix-image-orientation.js"></script>
 
-<script>
-    var ctx = document.getElementById("myChart").getContext("2d");
-    var data = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-            {
-                label: "My First dataset",
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1,
-                data: [65, 59, 80, 81, 56, 55, 40],
-            }
-        ]
-    };
-    var myBarChart = new Chart(ctx, {
-        type: 'bar',
-        data: data,
-        options: {
-            responsive: false,
-            title: {
-                display: true,
-                text: 'Custom Chart Title'
-            }
-        }
-    });
-</script>
+<!--<script>-->
+    <!--var ctx = document.getElementById("myChart").getContext("2d");-->
+    <!--var data = {-->
+        <!--labels: ["January", "February", "March", "April", "May", "June", "July"],-->
+        <!--datasets: [-->
+            <!--{-->
+                <!--label: "My First dataset",-->
+                <!--backgroundColor: [-->
+                    <!--'rgba(255, 99, 132, 0.2)',-->
+                    <!--'rgba(54, 162, 235, 0.2)',-->
+                    <!--'rgba(255, 206, 86, 0.2)',-->
+                    <!--'rgba(75, 192, 192, 0.2)',-->
+                    <!--'rgba(153, 102, 255, 0.2)',-->
+                    <!--'rgba(255, 159, 64, 0.2)'-->
+                <!--],-->
+                <!--borderColor: [-->
+                    <!--'rgba(255,99,132,1)',-->
+                    <!--'rgba(54, 162, 235, 1)',-->
+                    <!--'rgba(255, 206, 86, 1)',-->
+                    <!--'rgba(75, 192, 192, 1)',-->
+                    <!--'rgba(153, 102, 255, 1)',-->
+                    <!--'rgba(255, 159, 64, 1)'-->
+                <!--],-->
+                <!--borderWidth: 1,-->
+                <!--data: [65, 59, 80, 81, 56, 55, 40],-->
+            <!--}-->
+        <!--]-->
+    <!--};-->
+    <!--var myBarChart = new Chart(ctx, {-->
+        <!--type: 'bar',-->
+        <!--data: data,-->
+        <!--options: {-->
+            <!--responsive: false,-->
+            <!--title: {-->
+                <!--display: true,-->
+                <!--text: 'Custom Chart Title'-->
+            <!--}-->
+        <!--}-->
+    <!--});-->
+<!--</script>-->
 
 <script src="app/app.js"></script>
 <script src="app/controller.js"></script>

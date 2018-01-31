@@ -36,6 +36,7 @@ var EventyCtrl = function($rootScope, $http, $document, $timeout, $scope, $q, Fi
                 var events = res.data;
                 events.forEach(function(e) {
                     $scope.createDateObjects(e);
+                    $rootScope.asdf=e;
                     var type = Storage.eventTypesMap[e.type];
                     e.color = type.color;
                     e.icon = type.icon;

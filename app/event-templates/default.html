@@ -9,7 +9,7 @@
     <img ng-src="userImage/?user={{event.user}}" class="avatar"/>
 </div>
 <div ng-show="event.images">
-    <img ng-repeat="img in event.images" ng-src="image/?imageRelativePath={{img}}" class="picture"/>
+    <img ng-repeat="img in event.images" img-fix-orientation="image/?imageRelativePath={{img}}" ng-src="image/?imageRelativePath={{img}}" class="picture"/>
 </div>
 <p ng-show="event.date">
     <small>Date: <b>{{event.date | date}}</b></small>
