@@ -35,8 +35,9 @@ var EventyCtrl = function($rootScope, $http, $document, $timeout, $scope, $q, Fi
             $http.get('event').then(function(res) {
                 var events = res.data;
                 events.forEach(function(e) {
+                    // $rootScope.asdf=JSON.stringify(e);
+                    // $rootScope.fdsa=new Date().toISOString();
                     $scope.createDateObjects(e);
-                    $rootScope.asdf=e;
                     var type = Storage.eventTypesMap[e.type];
                     e.color = type.color;
                     e.icon = type.icon;
@@ -88,7 +89,7 @@ var EventyCtrl = function($rootScope, $http, $document, $timeout, $scope, $q, Fi
 
     /** Create section */
     $scope.createEventServer = function() {
-        $scope.newEvent.creationDate = new Date().toISOString();
+        $scope.newEvent.creationDate = (new Date()).toISOString();
         // if no date - add as creation date
         if (!$scope.newEvent.date) {
             $scope.newEvent.date = $scope.newEvent.creationDate
@@ -186,28 +187,43 @@ var EventyCtrl = function($rootScope, $http, $document, $timeout, $scope, $q, Fi
     /** Utils */
     $scope.createDateObjects = function(ge) {
         if (ge.date) {
-            ge.date = new Date(ge.date);
+            ge.date = parseDate(ge.date);
         }
         if (ge.start) {
-            ge.start = new Date(ge.start);
+            ge.start = parseDate(ge.start);
         }
         if (ge.end) {
-            ge.end = new Date(ge.end);
+            ge.end = parseDate(ge.end);
         }
         if (ge.events) {
             ge.events.forEach(function(e) {
                 if (e.date) {
-                    e.date = new Date(e.date);
+                    e.date = parseDate(e.date);
                 }
                 if (e.start) {
-                    e.start = new Date(e.start);
+                    e.start = parseDate(e.start);
                 }
                 if (e.end) {
-                    e.end = new Date(e.end);
+                    e.end = parseDate(e.end);
                 }
             });
         }
     };
+
+    function parseDate(input, format) {
+        format = format || 'yyyy-mm-dd'; // default format
+        var parts = input.match(/(\d+)/g),
+            i = 0, fmt = {};
+        // extract date-part indexes from the format
+        format.replace(/(yyyy|dd|mm)/g, function(part) { fmt[part] = i++; });
+
+        return new Date(parts[fmt['yyyy']], parts[fmt['mm']]-1, parts[fmt['dd']]);
+    }
+
+    function parseDateISO(input) {
+        return parseDate(input, 'yyyy-mm-dd')
+    }
+
     $scope.scrollHack = function() {
         var st = document.body.scrollTop;
         document.body.scrollTop = st+1;
