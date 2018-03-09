@@ -43,10 +43,16 @@
         <div class="container-fluid">
             <div class="col-md-4">
                 <h4>Filters</h4>
+                <button ng-click="setSizeAndUpdateEventList(5)">5</button>
+                <button ng-click="setSizeAndUpdateEventList(10)">10</button>
+                <button ng-click="setSizeAndUpdateEventList(20)">20</button>
+                <button ng-click="setSizeAndUpdateEventList(50)">50</button>
+                <button ng-click="setSizeAndUpdateEventList(100)">100</button>
+                <button ng-click="setSizeAndUpdateEventList(100500)">100500</button>
                 <h5>event type</h5>
-                <type-select class="input-group" type="eventsFilter.filterType" event-types="eventTypes"></type-select>
+                <type-select class="input-group" type="eventsFilter.filterType" event-types="eventTypes" on-select="updateEventList()" on-deselect="updateEventList()"></type-select>
                 <h5>user</h5>
-                <user-select class="input-group" user="eventsFilter.user" users="users"></user-select>
+                <user-select class="input-group" user="eventsFilter.user" users="users" on-select="updateEventList()" on-deselect="updateEventList()"></user-select>
                 <!--<button type="button" class="btn btn-default btn-sm"-->
                 <!--ng-click="eventsFilter.eventsOrderBy = 'creationDate'">Show New First-->
                 <!--</button>-->
@@ -62,7 +68,8 @@
                 <!--<canvas id="myChart" width="400" height="400"></canvas>-->
                 <timeline class="col-md-6">
                     <h1 style="text-align: right; margin: 1rem;">прошедшие</h1>
-                    <timeline-event ng-repeat="event in events | filter:eventsFilterFn" side="{{side}}">
+                    <!--<timeline-event ng-repeat="event in events | filter:eventsFilterFn" side="{{side}}">-->
+                    <timeline-event ng-repeat="event in events" side="{{side}}">
                         <timeline-badge style="background-color: {{event.color}}" class="{{event.badgeClass}} timeline-hidden" when-visible="animateElementIn" when-not-visible="animateElementOut">
                             <i class="glyphicon glyphicon-{{event.icon}}"></i>
                         </timeline-badge>

@@ -17,7 +17,7 @@
     </ui-select-choices>
 </ui-select>
 <span class="input-group-btn">
-  <button type="button" ng-click="ctrl.type = undefined" class="btn btn-default">
+  <button type="button" ng-click="ctrl.type = undefined; ctrl.onDeselect()" class="btn btn-default">
     <span class="glyphicon glyphicon-trash"></span>
   </button>
 </span>

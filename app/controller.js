@@ -18,6 +18,7 @@ var EventyCtrl = function($rootScope, $http, $document, $timeout, $scope, $q, Fi
     $scope.modifyEvent = {};
     $scope.showAllFieldsCreate = false;
     $scope.showAllFieldsModify = false;
+    $scope.eventsSize = 10;
 
     $scope.users = [{
         name: 'alex'
@@ -31,39 +32,75 @@ var EventyCtrl = function($rootScope, $http, $document, $timeout, $scope, $q, Fi
     };
 
     $scope.listEvents = function() {
-        $scope.fillEventTypes().then(function() {
-            $http.get('event').then(function(res) {
-                var events = res.data;
-                events.forEach(function(e) {
-                    // $rootScope.asdf=JSON.stringify(e);
-                    // $rootScope.fdsa=new Date().toISOString();
-                    $scope.createDateObjects(e);
-                    var type = Storage.eventTypesMap[e.type];
-                    e.color = type.color;
-                    e.icon = type.icon;
-                    e.when = moment(e.creationDate).fromNow();
-                    $scope.events.push(e)
-                });
-            });
-            $http.get('event-future').then(function(res) {
-                var events = res.data;
-                events.forEach(function(e) {
-                    $scope.createDateObjects(e);
-                    var type = Storage.eventTypesMap[e.type];
-                    e.color = type.color;
-                    e.icon = type.icon;
-                    e.when = moment(e.creationDate).fromNow();
-                    $scope.futureEvents.push(e)
-                });
-            });
-        });
+        $scope.fillEventTypes().then($scope.updateEventList);
+    };
 
+    $scope.updateEventList = function() {
+        let size = $scope.eventsSize;
+        let typeObj = $scope.eventsFilter.filterType;
+        let userObj = $scope.eventsFilter.user;
+        $http.get('event?size=' + size + (typeObj ? '&type=' + typeObj.type : '') + (userObj ? '&user=' + userObj.name : '')).then(function(res) {
+            let events = res.data;
+            events = events.map(function(e) {
+                // $rootScope.asdf=JSON.stringify(e);
+                // $rootScope.fdsa=new Date().toISOString();
+                $scope.createDateObjects(e);
+                var type = Storage.eventTypesMap[e.type];
+                e.color = type.color;
+                e.icon = type.icon;
+                e.when = moment(e.creationDate).fromNow();
+                return e;
+            });
+            // update existing list
+            $scope.events = events;
+            // for (let e of events) {
+            //     let found = false;
+            //     for (let event of $scope.events) {
+            //         if (event.id === e.id) {
+            //             found = true;
+            //             break;
+            //         }
+            //     }
+            //     if (!found) {
+            //         $scope.events.push(e)
+            //     }
+            // }
+            // for (let i = $scope.events.length - 1; i >= 0; i--) {
+            //     let event = $scope.events[i];
+            //     let found = false;
+            //     for (let e of events) {
+            //         if (event.id === e.id) {
+            //             found = true;
+            //             break;
+            //         }
+            //     }
+            //     if (!found) {
+            //         $scope.events.splice(i, 1);
+            //     }
+            // }
+        });
+        // $http.get('event-future').then(function(res) {
+        //     var events = res.data;
+        //     events.forEach(function(e) {
+        //         $scope.createDateObjects(e);
+        //         var type = Storage.eventTypesMap[e.type];
+        //         e.color = type.color;
+        //         e.icon = type.icon;
+        //         e.when = moment(e.creationDate).fromNow();
+        //         $scope.futureEvents.push(e)
+        //     });
+        // });
+    };
+
+    $scope.setSizeAndUpdateEventList = function(size) {
+        $scope.eventsSize = size;
+        $scope.updateEventList();
     };
 
     $scope.fillEventTypes = function() {
-        var p = $http.get('event-type');
+        const p = $http.get('event-type');
         p.then(function(res) {
-            var eventTypes = res.data;
+            let eventTypes = res.data;
             eventTypes.forEach(function(e) {
                 Storage.eventTypesMap[e.type] = e; // fill the map
                 Storage.eventTypes.push(e)
