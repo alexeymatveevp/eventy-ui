@@ -25,6 +25,7 @@ timeline-panel {
     width: initial;
     float: right;
     margin-right: 50px;
+    animation: none
 }
 
 timeline-footer {

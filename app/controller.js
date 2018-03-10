@@ -51,8 +51,17 @@ var EventyCtrl = function($rootScope, $http, $document, $timeout, $scope, $q, Fi
                 e.when = moment(e.creationDate).fromNow();
                 return e;
             });
+            events[0].startperiod = "New start";
+            events[3].endperiod = "New start (end)";
             // update existing list
             $scope.events = events;
+            // $timeout(function(){
+            //     console.log("Running after the digest cycle");
+            //     checkImages(function() {
+            //         console.log('callback');
+            //     });
+            // },0,false);
+
             // for (let e of events) {
             //     let found = false;
             //     for (let event of $scope.events) {
