@@ -1,0 +1,77 @@
+.loading-screen {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    background-color: #799cba;
+    text-align: center;
+    font-size: 2em;
+    color: white;
+    padding: 30px 0 0 0;
+    transition: top 1s;
+    z-index: 1000;
+}
+.loading-screen.away {
+    top: -100%;
+}
+
+.logo {
+    width: 100%;
+    background-color: #0a5d8e;
+    font-size: 16pt;
+    font-family: cursive;
+    color: white;
+}
+.logo-name {
+    display: inline-block;
+    padding: 20px;
+    background-color: #566f7f;
+}
+.logo-navigation {
+    display: inline-block;
+}
+.tab-nav {
+    display: inline-block;
+    padding: 20px;
+    cursor: pointer;
+}
+.tab-nav:hover {
+    background: #0b679e;
+}
+
+/* my select */
+.my-select {
+    position: relative;
+}
+.my-select-selected {
+    padding: 10px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.my-select-selected:hover {
+    background: #f8f8f8;
+}
+.my-select-options {
+    position: absolute;
+    height: 200px;
+    overflow: scroll;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    z-index: 3;
+}
+
+.event-type-option {
+    padding: 10px;
+    cursor: pointer;
+}
+.event-type-option:nth-child(even) {
+    background: white;
+}
+.event-type-option:nth-child(odd) {
+    background: #f6f8ff;
+}
+.event-type-option:hover {
+    background: #f8f8f8;
+}
+

@@ -1,0 +1,11 @@
+<li class="event-type-option">
+    <span style="display: block;">
+            <i class="glyphicon glyphicon-{{option.icon}}" style="color: {{option.color}}"></i>
+            {{option.type}}
+        </span>
+    <div ng-show="option.fields">
+        <small>Fields:</small>
+        <span>{{ option.fields }} </span>
+    </div>
+    <small ng-show="option.subEventType">Nested event type: {{option.subEventType}}</small>
+</li>

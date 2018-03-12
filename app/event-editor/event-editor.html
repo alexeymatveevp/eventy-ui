@@ -1,0 +1,128 @@
+<div class="col-sm-12">
+    <h4>
+        {{eventType.type}} event:
+        <button ng-click="showAllFieldsEvent = !showAllFieldsEvent" class="btn btn-primary">Toggle all fields</button>
+    </h4>
+    <div class="col-md-3">
+        <div class="event-headline input-group input-group-lg">
+            <span class="input-group-addon">Headline:</span>
+            <input type="text" class="form-control">
+        </div>
+        <div class="event-user btn-group">
+            <button class="event-user-alex btn btn-success">Леша</button>
+            <button class="event-user-zhopka btn btn-danger">Жопка</button>
+        </div>
+        <div ng-show="$root.inArray('images',eventType.fields) || showAllFieldsEvent">
+            <input type="file" nv-file-select="" uploader="uploader" multiple/>
+            <table class="table-responsive">
+                <thead>
+                <tr>
+                    <th width="50%"></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="img in newEvent.images">
+                    <td>
+                        <div>
+                            <strong></strong>
+                        </div>
+                        <img img-fix-orientation="image/?imageRelativePath=" ng-src="image/?imageRelativePath=" style="max-width: 200px"/>
+                    </td>
+                    <td nowrap>
+                        <button type="button" class="btn btn-danger btn-xs"
+                                ng-click="removeImage(img)">
+                            <span class="glyphicon glyphicon-trash"></span> Remove
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div ng-show="$root.inArray('date',eventType.fields) || showAllFieldsEvent">
+            <p>Date</p>
+            <date-picker date="newEvent.date"></date-picker>
+        </div>
+        <div ng-show="$root.inArray('text',eventType.fields) || showAllFieldsEvent">
+            <textarea ng-model="newEvent.text" style="width: 100%"></textarea>
+        </div>
+        <div ng-show="$root.inArray('start',eventType.fields) || showAllFieldsEvent">
+            <p>Start</p>
+            <date-picker date="newEvent.start"></date-picker>
+        </div>
+        <div ng-show="$root.inArray('end',eventType.fields) || showAllFieldsEvent">
+            <p>End</p>
+            <date-picker date="newEvent.end"></date-picker>
+        </div>
+        <div ng-show="$root.inArray('measure',eventType.fields) || showAllFieldsEvent">
+            <p>Measure</p>
+            <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input type="text" class="form-control" ng-model="newEvent.measure">
+                <span class="input-group-addon"></span>
+            </div>
+        </div>
+        <div ng-show="$root.inArray('severity',eventType.fields) || showAllFieldsEvent">
+            <p>Severity</p>
+            <span uib-rating ng-model="newEvent.severity" max="10" read-only="false"></span>
+        </div>
+        <div ng-show="$root.inArray('selectedItems',eventType.fields) || showAllFieldsEvent">
+            <p>Selected items</p>
+            <ui-select multiple ng-model="newEvent.selectedItems" theme="bootstrap" close-on-select="true" style="width: 100%;"
+                       search-enabled="false" title="Choose values">
+                <ui-select-match placeholder="Select colors..."></ui-select-match>
+                <ui-select-choices repeat="val in eventType.possibleValues | filter:$select.search">
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div ng-show="eventType.subEventTypes">
+            <div class="btn-group dropup">
+                <button type="button" class="btn btn-lg btn-default dropdown-toggle" data-toggle="dropdown">
+                    Добавить еще <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="et in eventType.subEventTypes">
+                        <a href="#" ng-click="addCreateSubEvent(et)"></a>
+                    </li>
+                </ul>
+            </div>
+            <ul ng-show="newEvent.events">
+                <li ng-repeat="se in newEvent.events" style="list-style: none; background: #f8f8f8; margin: 5px; padding: 10px;">
+                    <h3></h3>
+                    <div ng-show="$root.inArray('date',eventTypesMap[se.type].fields) || showAllFieldsEvent">
+                        <p>Date</p>
+                        <date-picker date="se.date"></date-picker>
+                    </div>
+                    <div ng-show="$root.inArray('text',eventTypesMap[se.type].fields) || showAllFieldsEvent">
+                        <textarea ng-model="se.text" style="width: 100%"></textarea>
+                    </div>
+                    <div ng-show="$root.inArray('start',eventTypesMap[se.type].fields) || showAllFieldsEvent">
+                        <p>Start</p>
+                        <date-picker date="se.start"></date-picker>
+                    </div>
+                    <div ng-show="$root.inArray('end',eventTypesMap[se.type].fields) || showAllFieldsEvent">
+                        <p>End</p>
+                        <date-picker date="se.end"></date-picker>
+                    </div>
+                    <div ng-show="$root.inArray('measure',eventTypesMap[se.type].fields) || showAllFieldsEvent">
+                        <p>Measure</p>
+                        <div class="input-group">
+                            <span class="input-group-addon"></span>
+                            <input type="text" class="form-control" ng-model="se.measure">
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+                    <div ng-show="$root.inArray('severity',eventTypesMap[se.type].fields) || showAllFieldsEvent">
+                        <p>Severity</p>
+                        <span uib-rating ng-model="se.severity" max="10" read-only="false"></span>
+                    </div>
+                    <button type="button" class="btn btn-default btn-sm" ng-click="newEvent.events.splice($index,1)">Delete</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <pre></pre>
+    </div>
+    <button type="button" class="btn btn-default" ng-click="editAndClean()">Сохранить</button>
+</div>

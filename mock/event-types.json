@@ -1,0 +1,233 @@
+[
+  {
+    "type": "EVENT",
+    "icon": "record",
+    "color": "#b7b7b7",
+    "fields": [
+      "date",
+      "headline",
+      "text",
+      "images"
+    ],
+    "main": true,
+    "subEventType": null,
+    "possibleValues": null,
+    "subEventTypes": null,
+    "background": null
+  },
+  {
+    "type": "WOMAN_PERIOD",
+    "icon": "tint",
+    "color": "#e05d63",
+    "fields": [
+      "start",
+      "end",
+      "text",
+      "events"
+    ],
+    "main": true,
+    "subEventType": null,
+    "possibleValues": null,
+    "subEventTypes": [
+      "WOMAN_PERIOD_DAY"
+    ],
+    "background": null
+  },
+  {
+    "type": "WOMAN_PERIOD_DAY",
+    "icon": "tint",
+    "color": "#e05d63",
+    "fields": [
+      "date",
+      "severity",
+      "text"
+    ],
+    "main": false,
+    "subEventType": null,
+    "possibleValues": null,
+    "subEventTypes": null,
+    "background": null
+  },
+  {
+    "type": "HEALTH_PROBLEMS",
+    "icon": "plus",
+    "color": "#a50707",
+    "fields": [
+      "date",
+      "start",
+      "end",
+      "severity",
+      "images",
+      "selectedItems"
+    ],
+    "main": true,
+    "subEventType": null,
+    "possibleValues": [
+      "HEADACHE",
+      "STOMACH",
+      "BACK",
+      "RASH",
+      "COLD",
+      "PENIS_TROUBLE",
+      "TEETH",
+      "WOMAN_TROUBLE",
+      "HANDS",
+      "LEGS"
+    ],
+    "subEventTypes": [
+      "HEALTH_PROBLEMS_PILLS",
+      "HEALTH_PROBLEMS_DIET"
+    ],
+    "background": "health-icon.png"
+  },
+  {
+    "type": "HEALTH_PROBLEMS_PILLS",
+    "icon": "",
+    "color": "",
+    "fields": [
+      "text",
+      "measure"
+    ],
+    "main": false,
+    "subEventType": null,
+    "possibleValues": null,
+    "subEventTypes": null,
+    "background": null
+  },
+  {
+    "type": "HEALTH_PROBLEMS_DIET",
+    "icon": "",
+    "color": "",
+    "fields": [
+      "text"
+    ],
+    "main": false,
+    "subEventType": null,
+    "possibleValues": null,
+    "subEventTypes": null,
+    "background": null
+  },
+  {
+    "type": "WEIGHT_SAMPLE",
+    "icon": "scale",
+    "color": "#688ee2",
+    "fields": [
+      "date",
+      "measure"
+    ],
+    "main": true,
+    "subEventType": null,
+    "possibleValues": null,
+    "subEventTypes": null,
+    "background": null
+  },
+  {
+    "type": "PARTY",
+    "icon": "glass",
+    "color": "#9a69f9",
+    "fields": [
+      "date",
+      "headline",
+      "text",
+      "severity",
+      "images"
+    ],
+    "main": true,
+    "subEventType": null,
+    "possibleValues": null,
+    "subEventTypes": null,
+    "background": null
+  },
+  {
+    "type": "INSPIRATION",
+    "icon": "info-sign",
+    "color": "#000000",
+    "fields": [
+      "date",
+      "headline",
+      "text",
+      "images"
+    ],
+    "main": true,
+    "subEventType": null,
+    "possibleValues": null,
+    "subEventTypes": null,
+    "background": null
+  },
+  {
+    "type": "SPORT",
+    "icon": "play-circle",
+    "color": "#0f5398",
+    "fields": [
+      "date",
+      "text",
+      "user",
+      "selectedItems"
+    ],
+    "main": true,
+    "subEventType": null,
+    "possibleValues": [
+      "EASY",
+      "HARD"
+    ],
+    "subEventTypes": [
+      "SPORT_PUSHUPS",
+      "SPORT_PULLUPS",
+      "SPORT_RUN",
+      "SPORT_JYM"
+    ],
+    "background": "sport.jpg"
+  },
+  {
+    "type": "SPORT_PUSHUPS",
+    "icon": "",
+    "color": "",
+    "fields": [
+      "measure"
+    ],
+    "main": false,
+    "subEventType": null,
+    "possibleValues": null,
+    "subEventTypes": null,
+    "background": null
+  },
+  {
+    "type": "SPORT_PULLUPS",
+    "icon": "",
+    "color": "",
+    "fields": [
+      "measure"
+    ],
+    "main": false,
+    "subEventType": null,
+    "possibleValues": null,
+    "subEventTypes": null,
+    "background": null
+  },
+  {
+    "type": "SPORT_RUN",
+    "icon": "",
+    "color": "",
+    "fields": [
+      "measure"
+    ],
+    "main": false,
+    "subEventType": null,
+    "possibleValues": null,
+    "subEventTypes": null,
+    "background": null
+  },
+  {
+    "type": "SPORT_JYM",
+    "icon": "",
+    "color": "",
+    "fields": [
+      "severity"
+    ],
+    "main": false,
+    "subEventType": null,
+    "possibleValues": null,
+    "subEventTypes": null,
+    "background": null
+  }
+]
